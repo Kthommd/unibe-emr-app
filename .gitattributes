@@ -1,0 +1,7 @@
+* text=auto eol=lf
+
+# Treat all Markdown files as UTF-8
+*.md text working-tree-encoding=UTF-8
+
+# Set default linguist language hints for React components
+*.jsx linguist-language=JavaScript
