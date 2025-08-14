@@ -1,6 +1,8 @@
 # UNIBE‑EMR
 
-UNIBE‑EMR is a lightweight electronic medical record (EMR) prototype built with React and Tailwind CSS. It allows students to record patient encounters, store them locally in the browser, generate PDF reports, and export/import data as JSON. The app supports both English and Spanish translations and does not require any back‑end server.
+First and foremost, I am a medical doctor first and far from a programmer. This is an attempt to create a lightweight electronic medical record (EMR) prototype built with React and Tailwind CSS. Maybe the real app is the friends we make along the way...
+
+UNIBE-EMR allows students to record patient encounters, store them locally in the browser, generate PDF reports, and export/import data as JSON. The app supports both English and Spanish translations and does not require any back-end server.
 
 ## Features
 
@@ -85,7 +87,7 @@ docker run -p 8080:80 unibe-emr:latest
 
 The application will be served by NGINX at `http://localhost:8080/`.
 
-### Development Container
+### Development Container (dont even really know what this means)
 
 The project includes a [devcontainer](https://code.visualstudio.com/docs/remote/containers) configuration for VS Code. Open the repository in VS Code and run **“Reopen in Container”** to spin up a fully configured development environment with Node.js, pnpm, ESLint, and Prettier installed.
 
