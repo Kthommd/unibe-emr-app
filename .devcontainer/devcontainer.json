@@ -1,0 +1,26 @@
+{
+  "name": "Unibe EMR Dev Container",
+  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:0-20",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        }
+      }
+    }
+  },
+  "postCreateCommand": "pnpm install && pnpm build",
+  "remoteUser": "node"
+}
