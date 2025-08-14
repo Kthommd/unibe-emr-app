@@ -1,6 +1,6 @@
 # UNIBE‑EMR
 
-UNIBE‑EMR is a lightweight electronic medical record (EMR) prototype built with React and Tailwind CSS. It allows students to record patient encounters, store them locally in the browser, generate PDF reports, and export/import data as JSON. The app supports both English and Spanish translations and does not require any back‑end server.
+UNIBE‑EMR is a lightweight electronic medical record (EMR) prototype built with React and Tailwind CSS. It allows students to record patient encounters, store them locally in the browser, generate PDF reports, and export/import data as JSON. The app supports both English and Spanish translations and does not require any back‑end server.
 
 ## Features
 
@@ -8,13 +8,13 @@ UNIBE‑EMR is a lightweight electronic medical record (EMR) prototype built wit
 - **Bilingual** interface with English and Spanish translations.
 - **PDF generation** of encounter notes, including patient vitals and SOAP sections.
 - **Import/Export** encounters as JSON for backup or transfer.
-- **Responsive design** using Tailwind CSS.
+- **Responsive design** using Tailwind CSS.
 - Built‑in **unit tests** and **linters** for code quality.
 
 ## Prerequisites
 
-- **Node.js ≥ 18** (we recommend using [corepack](https://github.com/nodejs/corepack) to manage package managers).
-- **pnpm ≥ 8** (see below for installation).
+- **Node.js ≥ 18** (we recommend using [corepack](https://github.com/nodejs/corepack) to manage package managers).
+- **pnpm ≥ 8** (see below for installation).
 
 ## Getting Started
 
@@ -87,7 +87,7 @@ The application will be served by NGINX at `http://localhost:8080/`.
 
 ### Development Container
 
-The project includes a [devcontainer](https://code.visualstudio.com/docs/remote/containers) configuration for VS Code. Open the repository in VS Code and run **“Reopen in Container”** to spin up a fully configured development environment with Node.js, pnpm, ESLint, and Prettier installed.
+The project includes a [devcontainer](https://code.visualstudio.com/docs/remote/containers) configuration for VS Code. Open the repository in VS Code and run **“Reopen in Container”** to spin up a fully configured development environment with Node.js, pnpm, ESLint, and Prettier installed.
 
 ## Environment Variables
 

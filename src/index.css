@@ -1,0 +1,13 @@
+/*
+  Tailwind CSS entry point. This file imports the Tailwind layers so that
+  classes such as bg-gray-100 or text-blue-700 are available in your
+  components. You can also place any global styles here.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global overrides or custom styles can be added below */
+body {
+  @apply antialiased;
+}
