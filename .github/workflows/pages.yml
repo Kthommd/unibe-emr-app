@@ -2,7 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -18,22 +19,28 @@ jobs:
     runs-on: ubuntu-latest
     environment: github-pages
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 9
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-      - run: |
+      - name: Install dependencies
+        run: |
           corepack enable
           pnpm install --no-frozen-lockfile
-      - run: pnpm build
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v2
+      - name: Build
+        run: pnpm build
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-      - uses: actions/deploy-pages@v4
+      - name: Deploy
         id: deployment
+        uses: actions/deploy-pages@v4
