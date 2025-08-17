@@ -23,8 +23,10 @@ module.exports = {
     // Customize or override rules here. For example, you can require
     // explicit return types on functions or disable prop-types if you use TypeScript.
     'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
   },
   settings: {
+        'react':
     react: {
       version: 'detect',
     },
