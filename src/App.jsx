@@ -834,7 +834,7 @@ EMRPage.displayName = 'EMRPage';
 
     // Test 4: filename sanitization
     if (sanitizeFilename('J. Doe / 01').indexOf('/') !== -1) throw new Error('Filename not sanitized');
-    if (sanitizeFilename('Paciente *?<>:"|').match(/[*?<>":|]/)) throw new Error('Filename bad chars not stripped');
+    if (sanitizeFilename('Paciente *?<>:"|').match(/[\*?<>":|]/)) throw new Error('Filename bad chars not stripped');
 
     // Test 5: clearAll semantics
     const sid2 = '__TEST_STUDENT_2__';
