@@ -1,18 +1,36 @@
 #!/usr/bin/env sh
-# Husky Git hooks shim
-
 if [ -z "$husky_skip_init" ]; then
-  debug() {
-    [ "$HUSKY_DEBUG" = "1" ] && echo "husky (debug) -" "$@"
+  debug () {
+    if [ "$HUSKY_DEBUG" = "1" ]; then
+      echo "husky (debug) - $1"
+    fi
   }
 
-  # Search ancestor directories for package.json
-  command_exists() {
-    command -v "$1" >/dev/null 2>&1
-  }
+  readonly hook_name="$(basename -- "$0")"
+  debug "starting $hook_name..."
 
-  # Execute husky-run if script is found
-  if command_exists husky-run; then
-    husky-run "$@"
+  if [ "$HUSKY" = "0" ]; then
+    debug "HUSKY env variable is set to 0, skipping hook"
+    exit 0
   fi
+
+  if [ -f ~/.huskyrc ]; then
+    debug "sourcing ~/.huskyrc"
+    . ~/.huskyrc
+  fi
+
+  readonly husky_skip_init=1
+  export husky_skip_init
+  sh -e "$0" "$@"
+  exitCode="$?"
+
+  if [ $exitCode != 0 ]; then
+    echo "husky - $hook_name hook exited with code $exitCode (error)"
+  fi
+
+  if [ $exitCode = 127 ]; then
+    echo "husky - command not found in PATH=$PATH"
+  fi
+
+  exit $exitCode
 fi
