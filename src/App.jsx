@@ -133,7 +133,7 @@ const translations = {
  *****************/
 const getT = (lang) => translations[lang] || translations.en; // robust fallback
 const canExportGuard = (page, encounter) => page === 'emr' && !!encounter; // pure helper for tests & UI state
-const sanitizeFilename = (s) => (s || 'Paciente').toString().replace(/[^\w\-]+/g, '_');
+const sanitizeFilename = (s) => (s || 'Paciente').toString().replace(/[^\w-]+/g, '_');
 const isValidPdfRoot = (el) => !!(el && el.nodeType === 1 && typeof el.getBoundingClientRect === 'function');
 
 /*****************
@@ -478,14 +478,24 @@ export default function App() {
         <header className="flex justify-between items-center mb-6 pb-2 border-b-2 border-blue-600">
           <h1 className="text-2xl md:text-3xl font-bold text-blue-700">{t.appName}</h1>
           <div className="flex items-center gap-2">
-            {/* Language toggles */}
-            <span className={`cursor-pointer p-1 rounded-md ${language === "es" ? "font-bold bg-blue-100" : ""}`} onClick={() => setLanguage("es")}>
+            {/* Language toggles (use buttons for a11y) */}
+            <button
+              type="button"
+              aria-pressed={language === 'es'}
+              className={`p-1 rounded-md ${language === "es" ? "font-bold bg-blue-100" : ""}`}
+              onClick={() => setLanguage("es")}
+            >
               ES
-            </span>
+            </button>
             <span className="mx-1 text-gray-400">|</span>
-            <span className={`cursor-pointer p-1 rounded-md ${language === "en" ? "font-bold bg-blue-100" : ""}`} onClick={() => setLanguage("en")}>
+            <button
+              type="button"
+              aria-pressed={language === 'en'}
+              className={`p-1 rounded-md ${language === "en" ? "font-bold bg-blue-100" : ""}`}
+              onClick={() => setLanguage("en")}
+            >
               EN
-            </span>
+            </button>
             {/* Disabled Export button when export is not allowed */}
             {!canExport && (
               <button
@@ -667,12 +677,18 @@ const PatientHeader = memo(({ encounter, t }) => (
   </div>
 ));
 
+// Explicit display name for memoized component
+PatientHeader.displayName = 'PatientHeader';
+
 const BigTextArea = memo(({ label, name, value, onChange }) => (
   <div>
     <label className="text-lg font-semibold text-gray-700">{label}</label>
     <textarea name={name} value={value} onChange={onChange} rows={8} className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
   </div>
 ));
+
+// Explicit display name for memoized component
+BigTextArea.displayName = 'BigTextArea';
 
 const AccordionItem = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -686,6 +702,9 @@ const AccordionItem = ({ title, children }) => {
     </div>
   );
 };
+
+// Display name for debugging and eslint
+AccordionItem.displayName = 'AccordionItem';
 
 // Fixed A4 width for stable slicing (~794px @ 96dpi)
 const PDFLayout = ({ innerRef, encounter, studentInfo, t }) => (
@@ -702,7 +721,7 @@ const PDFLayout = ({ innerRef, encounter, studentInfo, t }) => (
       <div className="grid grid-cols-2 gap-2">
         <p><span className="font-semibold">{t.patientName}:</span> {encounter.patientName}</p>
         <p><span className="font-semibold">{t.age}:</span> {encounter.patientAge}</p>
-        <p><span class="font-semibold">{t.sex}:</span> {encounter.patientSex}</p>
+        <p><span className="font-semibold">{t.sex}:</span> {encounter.patientSex}</p>
         <p><span className="font-semibold">{t.timestampHeader}:</span> {new Date(encounter.creationTimestamp).toLocaleString()}</p>
       </div>
     </div>
@@ -735,6 +754,9 @@ const PDFLayout = ({ innerRef, encounter, studentInfo, t }) => (
     </div>
   </div>
 );
+
+// Display name for eslint/debugging
+PDFLayout.displayName = 'PDFLayout';
 
 const EMRPage = ({ encounter, setEncounter, studentInfo, onSave, onExport, isSaving, isExporting, onBack, t }) => {
   const [activeTab, setActiveTab] = useState("soap");
@@ -773,6 +795,9 @@ const EMRPage = ({ encounter, setEncounter, studentInfo, onSave, onExport, isSav
   );
 };
 
+// Display name for eslint/debugging
+EMRPage.displayName = 'EMRPage';
+
 /*****************
  * Minimal in-app problem solvers (no external runner required)
  *****************/
@@ -809,7 +834,7 @@ const EMRPage = ({ encounter, setEncounter, studentInfo, onSave, onExport, isSav
 
     // Test 4: filename sanitization
     if (sanitizeFilename('J. Doe / 01').indexOf('/') !== -1) throw new Error('Filename not sanitized');
-    if (sanitizeFilename('Paciente *?<>:"|').match(/[*?<>":|]/)) throw new Error('Filename bad chars not stripped');
+    if (sanitizeFilename('Paciente *?<>:"|').match(/[\*?<>":|]/)) throw new Error('Filename bad chars not stripped');
 
     // Test 5: clearAll semantics
     const sid2 = '__TEST_STUDENT_2__';
